@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Vibe &amp; Spec Workshop</title>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  /* ============================================================= DECK THEME */
+  :root{
+    --deck-accent: var(--teal-600);
+    --deck-accent-soft: var(--teal-100);
+    --deck-accent-ink: var(--teal-700);
+    --deck-section-bg: var(--clay-600);
+    --deck-section-num: var(--clay-200);
+  }
+  :root[data-accent="teal"]{ --deck-accent:var(--teal-600); --deck-accent-soft:var(--teal-100); --deck-accent-ink:var(--teal-700); }
+  :root[data-accent="clay"]{ --deck-accent:var(--clay-600); --deck-accent-soft:var(--clay-100); --deck-accent-ink:var(--clay-700); }
+  :root[data-accent="ink"]{  --deck-accent:var(--ink-700);  --deck-accent-soft:var(--sand-200); --deck-accent-ink:var(--ink-800); }
+  :root[data-section="clay"]{ --deck-section-bg:var(--clay-600); --deck-section-num:var(--clay-200); }
+  :root[data-section="teal"]{ --deck-section-bg:var(--teal-600); --deck-section-num:var(--teal-100); }
+  :root[data-section="ink"]{  --deck-section-bg:var(--ink-900);  --deck-section-num:var(--ink-400); }
+  :root[data-motif="off"] .motif{ display:none !important; }
+
+  html,body{ margin:0; background:#0e0d0b; }
+  deck-stage:not(:defined){ visibility:hidden; }
+
+  /* ============================================================= BASE SLIDE */
+  .slide{ box-sizing:border-box; overflow:hidden; position:relative;
+    font-family:var(--font-sans); color:var(--ink-900); background:var(--sand-50); }
+  .pad{ padding:84px; }
+  .eyebrow{ font-family:var(--font-mono); font-size:14px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--deck-accent); margin:0; }
+  .mono{ font-family:var(--font-mono); }
+
+  /* corner logo + footer rhythm */
+  .foot{ position:absolute; left:84px; right:84px; bottom:54px; display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-mono); font-size:13px; color:var(--ink-500); letter-spacing:0.02em; }
+  .foot .l{ display:flex; align-items:center; gap:10px; }
+  .foot img{ width:24px; height:24px; }
+  .foot b{ color:var(--ink-800); font-weight:600; }
+
+  /* ---- TITLE ---- */
+  .s-title{ display:flex; flex-direction:column; justify-content:space-between; }
+  .s-title .waves{ position:absolute; top:-70px; right:-90px; width:700px; opacity:0.42; pointer-events:none; }
+  .s-title .top{ display:flex; align-items:center; gap:14px; position:relative; }
+  .s-title .mark{ width:46px; height:46px; }
+  .s-title .word{ font-family:var(--font-sans); font-weight:700; font-size:20px; letter-spacing:-0.01em; color:var(--ink-900); line-height:1.05; white-space:nowrap; }
+  .s-title .word small{ display:block; font-family:var(--font-mono); font-weight:500; font-size:12px; letter-spacing:0.14em; color:var(--teal-600); margin-top:3px; }
+  .s-title .center{ position:relative; }
+  .s-title .eyebrow{ color:var(--clay-600); font-size:15px; letter-spacing:0.16em; }
+  .s-title h1{ font-family:var(--font-display); font-size:104px; line-height:0.98; letter-spacing:-0.03em; font-weight:500; color:var(--ink-900); margin:22px 0 0; }
+  .s-title .sub{ font-size:25px; color:var(--ink-600); margin:26px 0 0; max-width:780px; line-height:1.4; }
+  .s-title .meta{ display:flex; gap:34px; align-items:flex-end; position:relative; font-family:var(--font-mono); font-size:14px; color:var(--ink-500); }
+  .s-title .meta b{ color:var(--ink-800); font-weight:600; }
+
+  /* ---- SECTION DIVIDER ---- */
+  .s-sec{ display:flex; flex-direction:column; justify-content:space-between; color:var(--sand-50); background:var(--deck-section-bg); }
+  .s-sec .grid{ position:absolute; inset:0; opacity:0.16; filter:brightness(0) invert(1); pointer-events:none; }
+  .s-sec .top{ display:flex; justify-content:space-between; align-items:center; position:relative; }
+  .s-sec .word{ font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.8); }
+  .s-sec .num{ font-family:var(--font-mono); font-size:15px; letter-spacing:0.14em; color:rgba(255,255,255,0.8); }
+  .s-sec .center{ position:relative; }
+  .s-sec .big{ font-family:var(--font-mono); font-size:124px; font-weight:500; line-height:1; color:var(--deck-section-num); letter-spacing:-0.02em; }
+  .s-sec h2{ font-family:var(--font-display); font-size:74px; line-height:1.02; letter-spacing:-0.025em; font-weight:500; color:var(--sand-50); margin:8px 0 0; }
+  .s-sec .sub{ font-size:23px; color:rgba(255,255,255,0.85); margin:22px 0 0; max-width:720px; line-height:1.45; }
+  .s-sec .botline{ position:relative; font-family:var(--font-mono); font-size:14px; color:rgba(255,255,255,0.72); }
+
+  /* ---- CONTENT ---- */
+  .s-content{ display:flex; flex-direction:column; }
+  .s-content h2{ font-family:var(--font-display); font-size:54px; line-height:1.05; letter-spacing:-0.025em; font-weight:500; color:var(--ink-900); margin:14px 0 0; max-width:20ch; }
+  .s-content .body{ margin-top:44px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start; }
+  .s-content ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:22px; }
+  .s-content li{ display:flex; gap:16px; align-items:flex-start; }
+  .s-content li .ic{ width:32px; height:32px; border-radius:9px; background:var(--deck-accent-soft); color:var(--deck-accent); display:flex; align-items:center; justify-content:center; flex:none; margin-top:2px; }
+  .s-content li .ic svg{ width:18px; height:18px; }
+  .s-content li b{ display:block; font-size:21px; color:var(--ink-900); font-weight:600; }
+  .s-content li span{ font-size:17px; color:var(--ink-600); line-height:1.45; }
+  .callout{ background:var(--clay-100); border:1px solid var(--clay-200); border-radius:var(--radius-lg); padding:26px; align-self:start; }
+  .callout.spec{ background:var(--teal-50); border-color:var(--teal-200); }
+  .callout .lab{ font-family:var(--font-mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay-700); display:flex; align-items:center; gap:8px; }
+  .callout.spec .lab{ color:var(--teal-700); }
+  .callout p{ margin:12px 0 0; font-size:18px; color:var(--ink-800); line-height:1.5; }
+  .callout svg{ width:16px; height:16px; }
+
+  /* ---- DEMO ---- */
+  .s-demo{ display:grid; grid-template-columns:0.82fr 1.18fr; gap:60px; align-items:center; }
+  .s-demo .eyebrow{ color:var(--clay-600); }
+  .s-demo h2{ font-family:var(--font-display); font-size:48px; line-height:1.06; letter-spacing:-0.025em; font-weight:500; color:var(--ink-900); margin:14px 0 0; }
+  .s-demo .lead{ font-size:19px; color:var(--ink-600); margin:22px 0 0; line-height:1.5; }
+  .s-demo .chip{ display:inline-flex; align-items:center; gap:8px; margin-top:28px; font-family:var(--font-mono); font-size:13px; color:var(--ink-700); background:var(--sand-100); border:1px solid var(--sand-300); padding:8px 14px; border-radius:var(--radius-pill); }
+  .s-demo .chip svg{ width:15px; height:15px; color:var(--teal-600); }
+
+  .term{ font-family:var(--font-mono); font-size:15.5px; line-height:1.7; background:var(--color-surface-dark); color:var(--sand-100);
+    border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--ink-700); box-shadow:var(--shadow-lg); }
+  .term .bar{ display:flex; align-items:center; gap:9px; padding:13px 18px; background:rgba(0,0,0,0.22); border-bottom:1px solid var(--ink-700); }
+  .term .dot{ width:12px; height:12px; border-radius:50%; }
+  .term .bt{ margin-left:8px; font-size:13px; color:var(--ink-400); letter-spacing:0.03em; }
+  .term .tb{ padding:22px 26px; }
+  .term .ln{ display:flex; gap:10px; }
+  .term .pr{ color:var(--teal-300); flex:none; }
+  .term .cm{ color:var(--ink-400); }
+  .term .out{ color:var(--sand-300); }
+  .term .ok{ color:#7FD7A8; }
+  .term .warn{ color:#E7C26B; }
+  .term .cl{ color:var(--clay-300); display:flex; gap:10px; }
+  .term .cl::before{ content:"●"; color:var(--clay-400); }
+  .term .cur{ display:inline-block; width:9px; height:1.05em; background:var(--clay-400); vertical-align:text-bottom; }
+
+  /* ---- AGENDA ---- */
+  .s-agenda{ display:flex; flex-direction:column; }
+  .s-agenda h2{ font-family:var(--font-display); font-size:52px; line-height:1.05; letter-spacing:-0.025em; font-weight:500; margin:14px 0 0; }
+  .s-agenda .grid2{ margin-top:42px; display:grid; grid-template-columns:1fr 1fr; gap:14px 56px; }
+  .s-agenda .row{ display:flex; align-items:baseline; gap:18px; padding:15px 0; border-bottom:1px solid var(--sand-300); }
+  .s-agenda .rn{ font-family:var(--font-mono); font-size:15px; color:var(--deck-accent); font-weight:500; width:34px; flex:none; }
+  .s-agenda .rt{ font-size:21px; color:var(--ink-900); font-weight:600; }
+  .s-agenda .rd{ font-size:15px; color:var(--ink-500); margin-left:auto; font-family:var(--font-mono); }
+
+  /* ---- COMPARISON ---- */
+  .s-cmp{ display:flex; flex-direction:column; }
+  .s-cmp .eyebrow{ text-align:center; color:var(--ink-500); }
+  .s-cmp h2{ font-family:var(--font-display); font-size:50px; line-height:1.05; letter-spacing:-0.025em; font-weight:500; color:var(--ink-900); margin:12px 0 0; text-align:center; }
+  .s-cmp .cols{ margin-top:46px; display:grid; grid-template-columns:1fr auto 1fr; gap:26px; align-items:stretch; }
+  .s-cmp .panel{ border-radius:var(--radius-xl); padding:38px; display:flex; flex-direction:column; gap:16px; }
+  .s-cmp .vibe{ background:var(--clay-50); border:1.5px solid var(--clay-200); }
+  .s-cmp .spec{ background:var(--teal-50); border:1.5px solid var(--teal-200); }
+  .s-cmp .ic{ width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center; }
+  .s-cmp .ic svg{ width:27px; height:27px; }
+  .s-cmp .vibe .ic{ background:var(--clay-500); color:var(--sand-50); }
+  .s-cmp .spec .ic{ background:var(--teal-500); color:var(--sand-50); }
+  .s-cmp .tag{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.14em; text-transform:uppercase; font-weight:500; }
+  .s-cmp .vibe .tag{ color:var(--clay-700); }
+  .s-cmp .spec .tag{ color:var(--teal-700); }
+  .s-cmp .panel h3{ font-family:var(--font-display); font-size:31px; font-weight:500; letter-spacing:-0.02em; margin:0; color:var(--ink-900); }
+  .s-cmp ul{ list-style:none; padding:0; margin:4px 0 0; display:flex; flex-direction:column; gap:12px; }
+  .s-cmp li{ display:flex; gap:12px; align-items:flex-start; font-size:18px; color:var(--ink-800); line-height:1.4; }
+  .s-cmp li svg{ width:19px; height:19px; flex:none; margin-top:2px; }
+  .s-cmp .vibe li svg{ color:var(--clay-500); }
+  .s-cmp .spec li svg{ color:var(--teal-500); }
+  .s-cmp .mid{ display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-style:italic; font-size:25px; color:var(--ink-400); }
+
+  /* ---- QUOTE ---- */
+  .s-quote{ display:flex; flex-direction:column; justify-content:center; background:var(--ink-900); padding-left:104px; padding-right:104px; }
+  .s-quote .motif{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.15; pointer-events:none; }
+  .s-quote .mark{ position:absolute; top:84px; left:104px; width:44px; height:44px; }
+  .s-quote blockquote{ margin:0; position:relative; max-width:1000px; }
+  .s-quote .q{ font-family:var(--font-display); font-size:52px; line-height:1.22; letter-spacing:-0.015em; font-weight:400; color:var(--sand-50); text-wrap:balance; }
+  .s-quote .open{ color:var(--clay-400); }
+  .s-quote footer{ margin-top:38px; display:flex; flex-direction:column; gap:6px; }
+  .s-quote .name{ color:var(--sand-50); font-weight:600; font-size:20px; }
+  .s-quote .role{ font-family:var(--font-mono); font-size:14px; letter-spacing:0.04em; color:var(--ink-400); }
+
+  /* ---- CLOSING ---- */
+  .s-close{ display:flex; flex-direction:column; justify-content:space-between; color:var(--sand-50); background:var(--teal-600); }
+  .s-close .waves{ position:absolute; bottom:-80px; left:-60px; width:760px; opacity:0.22; filter:brightness(0) invert(1); pointer-events:none; }
+  .s-close .top{ display:flex; align-items:center; gap:14px; position:relative; }
+  .s-close .mark{ width:46px; height:46px; }
+  .s-close .word{ font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.85); }
+  .s-close .center{ position:relative; }
+  .s-close .eyebrow{ color:var(--teal-100); font-size:15px; letter-spacing:0.16em; }
+  .s-close h1{ font-family:var(--font-display); font-size:92px; line-height:1; letter-spacing:-0.03em; font-weight:500; color:var(--sand-50); margin:20px 0 0; }
+  .s-close .sub{ font-size:24px; color:rgba(255,255,255,0.88); margin:24px 0 0; max-width:700px; line-height:1.45; }
+  .s-close .links{ position:relative; display:flex; gap:38px; align-items:center; font-family:var(--font-mono); font-size:15px; color:var(--sand-50); }
+  .s-close .links .item{ display:flex; align-items:center; gap:10px; }
+  .s-close .links svg{ width:18px; height:18px; color:var(--teal-100); }
+
+  /* ---- entrance: none — keep content reliably visible for capture, print & export ---- */
+
+  /* ---- tweaks root ---- */
+  #tweak-root{ position:fixed; inset:0; pointer-events:none; z-index:2147483000; }
+  #tweak-root > *{ pointer-events:auto; }
+</style>
+</head>
+<body>
+<deck-stage width="1280" height="720">
+
+  <!-- ============================================================ 01 TITLE -->
+  <section class="slide s-title pad" data-screen-label="Title">
+    <img class="waves motif" src="assets/motif-waves.svg" alt="">
+    <div class="top">
+      <img class="mark" src="assets/logo-mark.svg" alt="">
+      <div class="word">Uber Vibe<small>&amp; SPEC</small></div>
+    </div>
+    <div class="center">
+      <p class="eyebrow rise">Claude Code workshop · Full day</p>
+      <h1 class="rise d1">From vibe<br>to spec.</h1>
+      <p class="sub rise d2">A hands-on day building real software with Claude Code — from feeling your way to a demo, to shipping with a spec.</p>
+    </div>
+    <div class="meta">
+      <span><b>Workshop 101</b> · Live cohort 16</span>
+      <span>6 modules · ~6 hours</span>
+      <span style="margin-left:auto">ubervibeandspec.com</span>
+    </div>
+  </section>
+
+  <!-- ========================================================== 02 WELCOME -->
+  <section class="slide s-content pad" data-screen-label="Welcome">
+    <p class="eyebrow rise">Welcome · The promise of today</p>
+    <h2 class="rise d1">By tonight, you'll drive Claude through a whole feature.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="message-circle"></i></span><div><b>Start by feel</b><span>Talk to Claude in plain language and watch a real change land in a real codebase.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="gauge"></i></span><div><b>Get efficient</b><span>Learn how context and tokens actually work, so your results get sharper and cheaper.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="check-check"></i></span><div><b>Ship with a spec</b><span>Plan, constrain, test — and hand Claude the autonomy to finish the job.</span></div></li>
+      </ul>
+      <div class="callout rise d2">
+        <div class="lab"><i data-lucide="users"></i> Who this is for</div>
+        <p>Working developers, whole teams, and curious beginners alike. No part of today assumes you've done this before — only that you want to build.</p>
+      </div>
+    </div>
+    <div class="foot">
+      <span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span>
+      <span>02</span>
+    </div>
+  </section>
+
+  <!-- ======================================================= 03 COMPARISON -->
+  <section class="slide s-cmp pad" data-screen-label="Two modes">
+    <p class="eyebrow rise">The two modes</p>
+    <h2 class="rise d1">Vibe and Spec, side by side</h2>
+    <div class="cols">
+      <div class="panel vibe rise d1">
+        <div class="ic"><i data-lucide="waves"></i></div>
+        <div class="tag">Vibe</div>
+        <h3>Build it by feel</h3>
+        <ul>
+          <li><i data-lucide="check"></i> Explore fast, discover the shape</li>
+          <li><i data-lucide="check"></i> Converse, prompt, iterate</li>
+          <li><i data-lucide="check"></i> Best for prototypes &amp; unknowns</li>
+        </ul>
+      </div>
+      <div class="mid rise d2">and</div>
+      <div class="panel spec rise d2">
+        <div class="ic"><i data-lucide="ruler"></i></div>
+        <div class="tag">Spec</div>
+        <h3>Ship it by spec</h3>
+        <ul>
+          <li><i data-lucide="check"></i> Plan, constrain, then build</li>
+          <li><i data-lucide="check"></i> Tests &amp; types as guardrails</li>
+          <li><i data-lucide="check"></i> Best for production &amp; scale</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot">
+      <span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span>
+      <span>03</span>
+    </div>
+  </section>
+
+  <!-- =========================================================== 04 AGENDA -->
+  <section class="slide s-agenda pad" data-screen-label="Agenda">
+    <p class="eyebrow rise">The map of the day</p>
+    <h2 class="rise d1">Six modules, one arc</h2>
+    <div class="grid2">
+      <div class="row rise d1"><span class="rn">01</span><span class="rt">Meet Claude Code</span><span class="rd">45 min</span></div>
+      <div class="row rise d1"><span class="rn">04</span><span class="rt">Spec-driven development</span><span class="rd">60 min</span></div>
+      <div class="row rise d2"><span class="rn">02</span><span class="rt">Vibe: building by feel</span><span class="rd">50 min</span></div>
+      <div class="row rise d2"><span class="rn">05</span><span class="rt">AI Skills for Claude Code</span><span class="rd">60 min</span></div>
+      <div class="row rise d3"><span class="rn">03</span><span class="rt">Context &amp; tokens</span><span class="rd">55 min</span></div>
+      <div class="row rise d3"><span class="rn">06</span><span class="rt">Loops, tests &amp; your workflow</span><span class="rd">50 min</span></div>
+    </div>
+    <div class="foot">
+      <span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span>
+      <span>04</span>
+    </div>
+  </section>
+
+  <!-- ===================================================== 05 SECTION 01 -->
+  <section class="slide s-sec pad" data-screen-label="Module 01">
+    <img class="grid motif" src="assets/motif-grid.svg" alt="">
+    <div class="top">
+      <div class="word">~ &amp; spec · workshop</div>
+      <div class="num">01 / 06</div>
+    </div>
+    <div class="center">
+      <div class="big rise">01</div>
+      <h2 class="rise d1">Meet Claude<br>Code</h2>
+      <p class="sub rise d2">An agent that lives in your terminal — it reads your code, makes the change, runs the command, with you in the loop the whole way.</p>
+    </div>
+    <div class="botline">Module 01 · 45 min</div>
+  </section>
+
+  <!-- ===================================================== 06 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="Mental model">
+    <p class="eyebrow rise">Module 01 · Mental model</p>
+    <h2 class="rise d1">It's a teammate, not autocomplete.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="book-open"></i></span><div><b>It reads the whole repo</b><span>Claude opens files, follows imports, and builds context before it edits anything.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="terminal"></i></span><div><b>It acts in your tools</b><span>Edits files, runs tests, uses git — the same tools you'd reach for yourself.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="eye"></i></span><div><b>You stay in the loop</b><span>Every change is a diff you review. Nothing ships without your eyes on it.</span></div></li>
+      </ul>
+      <div class="callout rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> Coach's note</div>
+        <p>Stop asking "what prompt gets the answer." Start asking "what would I tell a sharp new teammate on day one."</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>06</span></div>
+  </section>
+
+  <!-- ===================================================== 07 DEMO -->
+  <section class="slide s-demo pad" data-screen-label="Demo: first loop">
+    <div>
+      <p class="eyebrow rise">Module 01 · Live demo</p>
+      <h2 class="rise d1">Watch it ship a real change.</h2>
+      <p class="lead rise d2">You describe the outcome in plain language. Claude reads the codebase, makes the edit, and writes a test — you review the diff at the end.</p>
+      <div class="chip rise d2"><i data-lucide="git-branch"></i> Live demo · checkout-service</div>
+    </div>
+    <div class="term rise d1">
+      <div class="bar"><span class="dot" style="background:var(--clay-400)"></span><span class="dot" style="background:var(--amber-500)"></span><span class="dot" style="background:var(--teal-400)"></span><span class="bt">claude-code — ~/checkout-service</span></div>
+      <div class="tb">
+        <div class="cm"># add a coupon field to checkout</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "add a coupon code field to checkout"</span></div>
+        <div class="cl">Reading the checkout flow… I'll add the field, validation, and a test.</div>
+        <div class="out">&nbsp;&nbsp;edited&nbsp;&nbsp;src/Checkout.tsx</div>
+        <div class="out">&nbsp;&nbsp;added&nbsp;&nbsp;&nbsp;src/Checkout.test.tsx</div>
+        <div class="ok">✓ 3 tests passing · ready to review</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 08 SECTION 02 -->
+  <section class="slide s-sec pad" data-screen-label="Module 02">
+    <img class="grid motif" src="assets/motif-grid.svg" alt="">
+    <div class="top"><div class="word">~ &amp; spec · workshop</div><div class="num">02 / 06</div></div>
+    <div class="center">
+      <div class="big rise">02</div>
+      <h2 class="rise d1">Vibe: building<br>by feel</h2>
+      <p class="sub rise d2">Fast, conversational, exploratory. You discover the shape of the thing by building it out loud — and that's exactly the right move when the path is unknown.</p>
+    </div>
+    <div class="botline">Module 02 · 50 min</div>
+  </section>
+
+  <!-- ===================================================== 09 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="How to vibe">
+    <p class="eyebrow rise">Module 02 · The vibe mode</p>
+    <h2 class="rise d1">How to vibe well.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="sparkles"></i></span><div><b>Describe outcomes, not steps</b><span>Say what "done" looks like and let Claude choose the how.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="repeat"></i></span><div><b>Iterate in small loops</b><span>React to what you see. Nudge, undo, try again — it's cheap to explore.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="zap"></i></span><div><b>Keep momentum</b><span>While you're exploring, perfect is the enemy of moving. Refine later.</span></div></li>
+      </ul>
+      <div class="callout rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> Coach's note</div>
+        <p>Vibe is for unknowns — a new idea, an unfamiliar library, a throwaway spike. Don't over-spec what you don't yet understand.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>09</span></div>
+  </section>
+
+  <!-- ===================================================== 10 DEMO -->
+  <section class="slide s-demo pad" data-screen-label="Demo: vibe a spike">
+    <div>
+      <p class="eyebrow rise">Module 02 · Live demo</p>
+      <h2 class="rise d1">Vibe a spike in minutes.</h2>
+      <p class="lead rise d2">No rules yet — just a goal and a conversation. We'll throw together a dashboard, look at it, and refine by feel.</p>
+      <div class="chip rise d2"><i data-lucide="flask-conical"></i> Live demo · throwaway prototype</div>
+    </div>
+    <div class="term rise d1">
+      <div class="bar"><span class="dot" style="background:var(--clay-400)"></span><span class="dot" style="background:var(--amber-500)"></span><span class="dot" style="background:var(--teal-400)"></span><span class="bt">claude-code — ~/playground</span></div>
+      <div class="tb">
+        <div class="cm"># spike: a quick metrics view, no rules yet</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "a dashboard showing signups per day"</span></div>
+        <div class="cl">On it — a simple chart off the events table. We can refine after.</div>
+        <div class="out">&nbsp;&nbsp;created&nbsp;&nbsp;app/dashboard/page.tsx</div>
+        <div class="ok">✓ running at localhost:3000/dashboard</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "make the bars clay and round the corners"</span></div>
+        <div class="cl">Done. Want a date filter next?</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 11 SECTION 03 -->
+  <section class="slide s-sec pad" data-screen-label="Module 03">
+    <img class="grid motif" src="assets/motif-grid.svg" alt="">
+    <div class="top"><div class="word">~ &amp; spec · workshop</div><div class="num">03 / 06</div></div>
+    <div class="center">
+      <div class="big rise">03</div>
+      <h2 class="rise d1">Context &amp;<br>tokens</h2>
+      <p class="sub rise d2">Everything Claude knows in a session lives in one context window. Manage it on purpose and your results get sharper, faster, and cheaper.</p>
+    </div>
+    <div class="botline">Module 03 · 55 min</div>
+  </section>
+
+  <!-- ===================================================== 12 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="How context works">
+    <p class="eyebrow rise">Module 03 · Foundations</p>
+    <h2 class="rise d1">The context window is the desk, not the library.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="layers"></i></span><div><b>One finite space</b><span>Files, chat history, and tool output all share a single window.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="focus"></i></span><div><b>What's loaded shapes the answer</b><span>Relevant context in, sharp answers out. Junk in, junk out.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="loader"></i></span><div><b>It fills up</b><span>Long sessions drift as the desk gets cluttered. Clear it deliberately.</span></div></li>
+      </ul>
+      <div class="callout spec rise d2">
+        <div class="lab"><i data-lucide="coins"></i> Spec note</div>
+        <p>Tokens are the unit of everything — input, output, and cost. Fewer, better tokens beats simply more tokens.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>12</span></div>
+  </section>
+
+  <!-- ===================================================== 13 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="Token tactics">
+    <p class="eyebrow rise">Module 03 · Tactics</p>
+    <h2 class="rise d1">Spend tokens where they earn their keep.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="crop"></i></span><div><b>Scope tightly</b><span>Point Claude at the files that matter, not the whole repo.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="eraser"></i></span><div><b>Compact and reset</b><span>Use /compact and fresh sessions to clear stale context between tasks.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="file-text"></i></span><div><b>Write durable facts down</b><span>Put project rules in CLAUDE.md so you never re-explain them.</span></div></li>
+      </ul>
+      <div class="callout spec rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> Coach's note</div>
+        <p>A short prompt with the right three files beats a giant prompt with the whole codebase pasted in.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>13</span></div>
+  </section>
+
+  <!-- ===================================================== 14 DEMO -->
+  <section class="slide s-demo pad" data-screen-label="Demo: context">
+    <div>
+      <p class="eyebrow rise">Module 03 · Live demo</p>
+      <h2 class="rise d1">See it, then shrink it.</h2>
+      <p class="lead rise d2">Inspect what's filling the window, then compact it — same conversation, a fraction of the tokens.</p>
+      <div class="chip rise d2"><i data-lucide="gauge"></i> Live demo · /context · /compact</div>
+    </div>
+    <div class="term rise d1">
+      <div class="bar"><span class="dot" style="background:var(--clay-400)"></span><span class="dot" style="background:var(--amber-500)"></span><span class="dot" style="background:var(--teal-400)"></span><span class="bt">claude-code — ~/checkout-service</span></div>
+      <div class="tb">
+        <div class="ln"><span class="pr">~ ❯</span><span>/context</span></div>
+        <div class="out">42,500 / 200,000 tokens · 21% used</div>
+        <div class="out">&nbsp;&nbsp;◖ system + tools&nbsp;&nbsp;&nbsp;8,200</div>
+        <div class="out">&nbsp;&nbsp;◖ open files&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14,800</div>
+        <div class="out">&nbsp;&nbsp;◖ conversation&nbsp;&nbsp;&nbsp;17,600</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>/compact</span></div>
+        <div class="cl">Summarizing the thread, dropping stale file reads…</div>
+        <div class="ok">✓ compacted · 42,500 → 9,300 tokens</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 15 SECTION 04 -->
+  <section class="slide s-sec pad" data-screen-label="Module 04">
+    <img class="grid motif" src="assets/motif-grid.svg" alt="">
+    <div class="top"><div class="word">~ &amp; spec · workshop</div><div class="num">04 / 06</div></div>
+    <div class="center">
+      <div class="big rise">04</div>
+      <h2 class="rise d1">Spec-driven<br>development</h2>
+      <p class="sub rise d2">Write the plan, the constraints, and the tests first — then drive Claude precisely. This is how you hand off real autonomy and trust the result.</p>
+    </div>
+    <div class="botline">Module 04 · 60 min</div>
+  </section>
+
+  <!-- ===================================================== 16 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="Anatomy of a spec">
+    <p class="eyebrow rise">Module 04 · Spec-driven</p>
+    <h2 class="rise d1">A good spec makes the agent unstoppable.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="target"></i></span><div><b>State the goal</b><span>One clear outcome, in plain language, before any code.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="list-checks"></i></span><div><b>List the constraints</b><span>Edge cases, data shapes, and what must not change.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="flask-conical"></i></span><div><b>Write the tests first</b><span>Let failing tests define done — then let Claude make them pass.</span></div></li>
+      </ul>
+      <div class="callout spec rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> Coach's note</div>
+        <p>The narrower the spec, the more autonomy you can safely hand the agent. Constrain first, then let go.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>16</span></div>
+  </section>
+
+  <!-- ===================================================== 17 DEMO -->
+  <section class="slide s-demo pad" data-screen-label="Demo: spec to green">
+    <div>
+      <p class="eyebrow rise">Module 04 · Live demo</p>
+      <h2 class="rise d1">From plan to green.</h2>
+      <p class="lead rise d2">The spec lives in a plan file with the tests already written. Claude implements only what's needed to make them pass — nothing more.</p>
+      <div class="chip rise d2"><i data-lucide="check-check"></i> Live demo · PLAN.md → tests</div>
+    </div>
+    <div class="term rise d1">
+      <div class="bar"><span class="dot" style="background:var(--clay-400)"></span><span class="dot" style="background:var(--amber-500)"></span><span class="dot" style="background:var(--teal-400)"></span><span class="bt">claude-code — ~/rate-limiter</span></div>
+      <div class="tb">
+        <div class="cm"># PLAN.md: goal, constraints, 6 tests</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "implement PLAN.md; make the tests pass"</span></div>
+        <div class="cl">Read the plan. 6 tests defined. Implementing the limiter now.</div>
+        <div class="out">&nbsp;&nbsp;edited&nbsp;&nbsp;src/rateLimiter.ts</div>
+        <div class="warn">⏳ running test suite…</div>
+        <div class="ok">✓ 6/6 passing · within spec, no extra changes</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 18 SECTION 05 -->
+  <section class="slide s-sec pad" data-screen-label="Module 05">
+    <img class="grid motif" src="assets/motif-grid.svg" alt="">
+    <div class="top"><div class="word">~ &amp; spec · workshop</div><div class="num">05 / 06</div></div>
+    <div class="center">
+      <div class="big rise">05</div>
+      <h2 class="rise d1">AI Skills for<br>Claude Code</h2>
+      <p class="sub rise d2">Reusable folders of instructions and assets that teach Claude how you do a specific job — loaded only when the task calls for them.</p>
+    </div>
+    <div class="botline">Module 05 · 60 min</div>
+  </section>
+
+  <!-- ===================================================== 19 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="What a Skill is">
+    <p class="eyebrow rise">Module 05 · AI Skills</p>
+    <h2 class="rise d1">Teach Claude once. Reuse it everywhere.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="folder"></i></span><div><b>A folder Claude can open</b><span>A SKILL.md plus any scripts, templates, or references the job needs.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="download"></i></span><div><b>Loaded on demand</b><span>Claude reaches for the skill only when the task calls for it — no context tax otherwise.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="share-2"></i></span><div><b>Shareable by default</b><span>Check skills into your repo so the whole team gets the same expert.</span></div></li>
+      </ul>
+      <div class="callout spec rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> Coach's note</div>
+        <p>Anything you find yourself explaining to Claude more than twice is a candidate for a Skill.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>19</span></div>
+  </section>
+
+  <!-- ===================================================== 20 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="Anatomy of a Skill">
+    <p class="eyebrow rise">Module 05 · AI Skills</p>
+    <h2 class="rise d1">Name, description, and progressive detail.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="tag"></i></span><div><b>Front matter</b><span>A name and one-line description tell Claude exactly when to reach for it.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="book-open"></i></span><div><b>Plain-language instructions</b><span>The body is how-to in the same words you'd tell a teammate.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="paperclip"></i></span><div><b>Bundled assets</b><span>Scripts, templates, and examples live beside it and load only if used.</span></div></li>
+      </ul>
+      <div class="callout spec rise d2">
+        <div class="lab"><i data-lucide="coins"></i> Ties back to Module 03</div>
+        <p>Skills use progressive disclosure: a short description up front, the full detail only when invoked. That's token management built in.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>20</span></div>
+  </section>
+
+  <!-- ===================================================== 21 DEMO -->
+  <section class="slide s-demo pad" data-screen-label="Demo: skill in action">
+    <div>
+      <p class="eyebrow rise">Module 05 · Live demo</p>
+      <h2 class="rise d1">A Skill, picked up automatically.</h2>
+      <p class="lead rise d2">The repo ships a "changelog" skill. We just ask for release notes — Claude recognizes the job and loads it, in our house format.</p>
+      <div class="chip rise d2"><i data-lucide="folder"></i> Live demo · skills/changelog</div>
+    </div>
+    <div class="term rise d1">
+      <div class="bar"><span class="dot" style="background:var(--clay-400)"></span><span class="dot" style="background:var(--amber-500)"></span><span class="dot" style="background:var(--teal-400)"></span><span class="bt">claude-code — ~/checkout-service</span></div>
+      <div class="tb">
+        <div class="cm"># skills/ is checked into the repo</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "draft release notes for this milestone"</span></div>
+        <div class="cl">This looks like a job for the 'changelog' skill — loading it.</div>
+        <div class="out">&nbsp;&nbsp;using skill&nbsp;&nbsp;changelog (SKILL.md + template)</div>
+        <div class="out">&nbsp;&nbsp;wrote&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGELOG.md</div>
+        <div class="ok">✓ release notes drafted in our house format</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 22 SECTION 06 -->
+  <section class="slide s-sec pad" data-screen-label="Module 06">
+    <img class="grid motif" src="assets/motif-grid.svg" alt="">
+    <div class="top"><div class="word">~ &amp; spec · workshop</div><div class="num">06 / 06</div></div>
+    <div class="center">
+      <div class="big rise">06</div>
+      <h2 class="rise d1">Loops, tests &amp;<br>your workflow</h2>
+      <p class="sub rise d2">Keep the agent honest, then wire it all into a rhythm you can take back to your own codebase tomorrow.</p>
+    </div>
+    <div class="botline">Module 06 · 50 min</div>
+  </section>
+
+  <!-- ===================================================== 23 CONTENT -->
+  <section class="slide s-content pad" data-screen-label="Keep it honest">
+    <p class="eyebrow rise">Module 06 · Verification</p>
+    <h2 class="rise d1">Trust the loop, verify the diff.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="flask-conical"></i></span><div><b>Tests are the contract</b><span>Green tests, not vibes, tell you a change is actually done.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="git-pull-request"></i></span><div><b>Review every diff</b><span>Read what changed. You own the code — the model doesn't.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="shield-check"></i></span><div><b>Automate the guardrails</b><span>Lint, types, and hooks catch what a tired reviewer misses.</span></div></li>
+      </ul>
+      <div class="callout spec rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> Coach's note</div>
+        <p>Autonomy and verification rise together. The more you can check, the more you can safely hand off.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>23</span></div>
+  </section>
+
+  <!-- ===================================================== 24 DEMO -->
+  <section class="slide s-demo pad" data-screen-label="Demo: TDD loop">
+    <div>
+      <p class="eyebrow rise">Module 06 · Live demo</p>
+      <h2 class="rise d1">Red, then green, on purpose.</h2>
+      <p class="lead rise d2">Ask for the failing test first. Watch it fail, then watch Claude close the loop — the whole change pinned by a test.</p>
+      <div class="chip rise d2"><i data-lucide="repeat"></i> Live demo · test-first</div>
+    </div>
+    <div class="term rise d1">
+      <div class="bar"><span class="dot" style="background:var(--clay-400)"></span><span class="dot" style="background:var(--amber-500)"></span><span class="dot" style="background:var(--teal-400)"></span><span class="bt">claude-code — ~/checkout-service</span></div>
+      <div class="tb">
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "failing test for empty-cart checkout, then fix it"</span></div>
+        <div class="cl">Added a test expecting a friendly error. It fails — good.</div>
+        <div class="warn">✗ 1 failing · CartEmptyError not thrown</div>
+        <div class="cl">Now implementing the guard to make it pass.</div>
+        <div class="out">&nbsp;&nbsp;edited&nbsp;&nbsp;src/Checkout.tsx</div>
+        <div class="ok">✓ 1 failing → 0 failing · loop closed</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================== 25 CONTENT (workflow) -->
+  <section class="slide s-content pad" data-screen-label="Your workflow">
+    <p class="eyebrow rise">Module 06 · Putting it together</p>
+    <h2 class="rise d1">Vibe to find it. Spec to ship it.</h2>
+    <div class="body">
+      <ul>
+        <li class="rise d1"><span class="ic"><i data-lucide="waves"></i></span><div><b>Explore by feel</b><span>Vibe a spike until you understand the problem you're really solving.</span></div></li>
+        <li class="rise d2"><span class="ic"><i data-lucide="ruler"></i></span><div><b>Capture the spec</b><span>Turn what you learned into a plan, constraints, and tests.</span></div></li>
+        <li class="rise d3"><span class="ic"><i data-lucide="check-check"></i></span><div><b>Hand off and verify</b><span>Let Claude drive to green while you review the diffs.</span></div></li>
+      </ul>
+      <div class="callout rise d2">
+        <div class="lab"><i data-lucide="lightbulb"></i> The one thing</div>
+        <p>Switch modes on purpose. The skill isn't vibe or spec — it's knowing which one the moment needs.</p>
+      </div>
+    </div>
+    <div class="foot"><span class="l"><img src="assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span><span>25</span></div>
+  </section>
+
+  <!-- ===================================================== 26 QUOTE -->
+  <section class="slide s-quote pad" data-screen-label="Testimonial">
+    <img class="motif" src="assets/motif-vibe-to-spec.svg" alt="">
+    <img class="mark" src="assets/logo-mark.svg" alt="">
+    <blockquote>
+      <p class="q rise"><span class="open">“</span>I came in able to prompt my way to a demo. I left able to ship a feature to production — spec, tests, and review — without babysitting every line.<span class="open">”</span></p>
+      <footer class="rise d1">
+        <span class="name">Priya N.</span>
+        <span class="role">Staff Engineer · Cohort 14</span>
+      </footer>
+    </blockquote>
+  </section>
+
+  <!-- ===================================================== 27 CLOSING -->
+  <section class="slide s-close pad" data-screen-label="Closing">
+    <img class="waves motif" src="assets/motif-waves.svg" alt="">
+    <div class="top">
+      <img class="mark" src="assets/logo-mark-mono.svg" alt="" style="color:var(--sand-50)">
+      <span class="word">Uber Vibe &amp; Spec</span>
+    </div>
+    <div class="center">
+      <p class="eyebrow rise">That's a wrap</p>
+      <h1 class="rise d1">Now go build.</h1>
+      <p class="sub rise d2">You've got the moves — vibe to explore, spec to ship, and the token sense to do both well. Take them back to your codebase tomorrow.</p>
+    </div>
+    <div class="links rise d2">
+      <span class="item"><i data-lucide="globe"></i> ubervibeandspec.com</span>
+      <span class="item"><i data-lucide="mail"></i> hello@ubervibeandspec.com</span>
+      <span class="item"><i data-lucide="git-branch"></i> /ubervibeandspec</span>
+    </div>
+  </section>
+
+</deck-stage>
+
+<div id="tweak-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "accent": "teal",
+    "section": "clay",
+    "motifs": true
+  }/*EDITMODE-END*/;
+
+  function DeckTweaks(){
+    const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+    React.useEffect(() => {
+      const r = document.documentElement;
+      r.dataset.accent = t.accent;
+      r.dataset.section = t.section;
+      r.dataset.motif = t.motifs ? 'on' : 'off';
+    }, [t.accent, t.section, t.motifs]);
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Color" />
+        <TweakRadio label="Spec accent" value={t.accent}
+          options={['teal','clay','ink']}
+          onChange={(v) => setTweak('accent', v)} />
+        <TweakRadio label="Section color" value={t.section}
+          options={['clay','teal','ink']}
+          onChange={(v) => setTweak('section', v)} />
+        <TweakSection label="Decoration" />
+        <TweakToggle label="Background motifs" value={t.motifs}
+          onChange={(v) => setTweak('motifs', v)} />
+      </TweaksPanel>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('tweak-root')).render(<DeckTweaks />);
+</script>
+<script src="deck-stage.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  // (re)draw icons after slides mount and whenever the active slide changes
+  function drawIcons(){ if (window.lucide) window.lucide.createIcons(); }
+  drawIcons();
+  document.addEventListener('slidechange', drawIcons);
+  window.addEventListener('load', drawIcons);
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Uber Vibe and Spec">
+  <rect x="1" y="1" width="62" height="62" rx="16" fill="none" stroke="currentColor" stroke-width="2"></rect>
+  <path d="M15 25 q 8.5 -11 17 0 t 17 0" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" fill="none"></path>
+  <line x1="17" y1="42" x2="47" y2="42" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" opacity="0.55"></line>
+</svg>

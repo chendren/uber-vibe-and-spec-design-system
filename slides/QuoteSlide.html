@@ -1,0 +1,30 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Quote slide" subtitle="Big testimonial on ink with the vibe→spec motif." -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--ink-900); }
+  .slide{ width:1280px; height:720px; position:relative; overflow:hidden; background:var(--ink-900);
+    padding:104px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; }
+  .motif{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.16; pointer-events:none; }
+  .mark{ position:absolute; top:84px; left:104px; width:44px; height:44px; }
+  blockquote{ margin:0; position:relative; max-width:980px; }
+  .q{ font-family:var(--font-display); font-size:54px; line-height:1.22; letter-spacing:-0.015em; font-weight:400; color:var(--sand-50); text-wrap:balance; }
+  .open{ color:var(--clay-400); }
+  footer{ margin-top:40px; display:flex; flex-direction:column; gap:6px; }
+  .name{ color:var(--sand-50); font-weight:600; font-size:20px; }
+  .role{ font-family:var(--font-mono); font-size:14px; letter-spacing:0.04em; color:var(--ink-400); }
+</style></head>
+<body>
+  <div class="slide">
+    <img class="motif" src="../assets/motif-vibe-to-spec.svg" alt="">
+    <img class="mark" src="../assets/logo-mark.svg" alt="">
+    <blockquote>
+      <p class="q"><span class="open">“</span>I came in able to prompt my way to a demo. I left able to ship a feature to production — spec, tests, and review — without babysitting every line.<span class="open">”</span></p>
+      <footer>
+        <span class="name">Priya N.</span>
+        <span class="role">Staff Engineer · Cohort 14</span>
+      </footer>
+    </blockquote>
+  </div>
+</body></html>

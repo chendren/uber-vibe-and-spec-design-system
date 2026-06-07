@@ -1,0 +1,22 @@
+<!-- @dsCard group="Brand" viewport="700x190" name="Logo — mark & wordmark" subtitle="A wave (vibe) on a baseline (spec). On light and on ink." -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;display:flex}
+  .panel{flex:1;display:flex;flex-direction:column;gap:18px;align-items:center;justify-content:center;padding:28px}
+  .light{background:var(--color-surface)}
+  .dark{background:var(--ink-900)}
+  .row{display:flex;align-items:center;gap:14px}
+  .cap{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+</style></head><body>
+  <div class="panel light">
+    <img src="../assets/logo-wordmark.svg" height="44">
+    <span class="cap" style="color:var(--color-text-subtle)">On sand / light</span>
+  </div>
+  <div class="panel dark">
+    <div class="row">
+      <img src="../assets/logo-mark.svg" width="44">
+      <span style="color:var(--sand-50);font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase">~ &amp; spec</span>
+    </div>
+    <span class="cap" style="color:var(--ink-400)">On ink / dark</span>
+  </div>
+</body></html>

@@ -1,0 +1,47 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Content slide" subtitle="Heading, key points, and a callout." -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--sand-50); }
+  .slide{ width:1280px; height:720px; position:relative; overflow:hidden; background:var(--sand-50);
+    padding:84px; box-sizing:border-box; display:flex; flex-direction:column; }
+  .eyebrow{ font-family:var(--font-mono); font-size:14px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--teal-600); }
+  h2{ font-family:var(--font-display); font-size:56px; line-height:1.05; letter-spacing:-0.025em; font-weight:500; color:var(--ink-900); margin:14px 0 0; max-width:18ch; }
+  .body{ margin-top:44px; display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:start; }
+  ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:24px; }
+  li{ display:flex; gap:16px; align-items:flex-start; }
+  li .ic{ width:30px; height:30px; border-radius:8px; background:var(--teal-100); color:var(--teal-600); display:flex; align-items:center; justify-content:center; flex:none; margin-top:2px; }
+  li .ic svg{ width:18px; height:18px; }
+  li b{ display:block; font-size:21px; color:var(--ink-900); font-weight:600; }
+  li span{ font-size:17px; color:var(--ink-600); line-height:1.45; }
+  .callout{ background:var(--clay-100); border:1px solid var(--clay-200); border-radius:var(--radius-lg); padding:28px; }
+  .callout .lab{ font-family:var(--font-mono); font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay-700); display:flex; align-items:center; gap:8px; }
+  .callout p{ margin:12px 0 0; font-size:18px; color:var(--ink-800); line-height:1.5; }
+  .foot{ margin-top:auto; padding-top:32px; display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:13px; color:var(--ink-500); }
+  .foot img{ width:24px; height:24px; }
+  .foot .l{ display:flex; align-items:center; gap:10px; }
+</style></head>
+<body>
+  <div class="slide">
+    <div class="eyebrow">Module 03 · Spec-driven</div>
+    <h2>A good spec makes the agent unstoppable.</h2>
+    <div class="body">
+      <ul>
+        <li><span class="ic"><i data-lucide="target"></i></span><div><b>State the goal</b><span>One clear outcome, in plain language, before any code.</span></div></li>
+        <li><span class="ic"><i data-lucide="list-checks"></i></span><div><b>List the constraints</b><span>Edge cases, data shapes, and what must not change.</span></div></li>
+        <li><span class="ic"><i data-lucide="flask-conical"></i></span><div><b>Write the tests first</b><span>Let failing tests define done — then let Claude make them pass.</span></div></li>
+      </ul>
+      <div class="callout">
+        <div class="lab"><i data-lucide="lightbulb" style="width:16px;height:16px"></i> Coach's note</div>
+        <p>The narrower the spec, the more autonomy you can safely hand the agent. Constrain first, then let go.</p>
+      </div>
+    </div>
+    <div class="foot">
+      <span class="l"><img src="../assets/logo-mark.svg" alt=""> Uber Vibe &amp; Spec</span>
+      <span>09</span>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body></html>

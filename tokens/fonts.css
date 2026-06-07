@@ -1,0 +1,20 @@
+/* ---------------------------------------------------------------------------
+   Uber Vibe and Spec — Webfonts
+   ---------------------------------------------------------------------------
+   Brand fonts are loaded from Google Fonts (see note below). These are the
+   @font-face declarations the compiler ships to consumers.
+
+   FONT SUBSTITUTION NOTE
+   ----------------------
+   Anthropic's own Claude brand uses licensed faces (Styrene / Tiempos / a
+   monospace). Uber Vibe and Spec is an independent brand, so we use freely
+   licensable Google Fonts chosen to carry the same warm, human, editorial
+   feeling:
+     - Newsreader      → editorial serif for display & headlines (Tiempos-like)
+     - Hanken Grotesk  → warm humanist sans for UI & body (Styrene-like)
+     - JetBrains Mono  → developer-grade monospace for code & terminal
+   If you have licensed faces you'd rather use, swap the @import below and the
+   --font-* tokens in typography.css.
+--------------------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;0,16..72,600;1,16..72,400;1,16..72,500&display=swap');

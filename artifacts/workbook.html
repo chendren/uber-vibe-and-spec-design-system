@@ -1,0 +1,79 @@
+<!-- @dsCard group="Artifacts" viewport="816x1056" name="Workbook page" subtitle="Curriculum worksheet — module spread." --><!-- @startingPoint section="Artifacts" subtitle="Printable curriculum workbook page" viewport="816x1056" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--sand-200); }
+  .page{ width:816px; min-height:1056px; box-sizing:border-box; margin:0 auto; background:var(--sand-50);
+    padding:64px 68px; box-shadow:var(--shadow-lg); display:flex; flex-direction:column; }
+  .head{ display:flex; align-items:center; justify-content:space-between; border-bottom:1.5px solid var(--ink-900); padding-bottom:16px; }
+  .head .l{ display:flex; align-items:center; gap:10px; }
+  .head .mark{ width:30px; height:30px; }
+  .head .w{ font-family:var(--font-sans); font-weight:700; font-size:15px; color:var(--ink-900); white-space:nowrap; }
+  .head .meta{ font-family:var(--font-mono); font-size:12px; letter-spacing:0.1em; color:var(--ink-500); text-transform:uppercase; }
+  .kicker{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:var(--teal-600); margin-top:34px; }
+  h1{ font-family:var(--font-display); font-size:42px; font-weight:500; letter-spacing:-0.02em; color:var(--ink-900); margin:8px 0 0; line-height:1.05; }
+  .lead{ font-size:17px; color:var(--ink-600); margin:14px 0 0; line-height:1.55; max-width:60ch; }
+  h2{ font-family:var(--font-sans); font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-900); margin:34px 0 14px; display:flex; align-items:center; gap:9px; }
+  h2 svg{ width:17px; height:17px; color:var(--teal-600); }
+  ul.obj{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:11px; }
+  ul.obj li{ display:flex; gap:11px; align-items:flex-start; font-size:16px; color:var(--ink-800); line-height:1.45; }
+  ul.obj li svg{ width:18px; height:18px; color:var(--clay-500); flex:none; margin-top:2px; }
+  .term{ font-family:var(--font-mono); font-size:13.5px; line-height:1.7; background:var(--color-surface-dark); color:var(--sand-100);
+    border-radius:var(--radius-md); padding:18px 20px; margin-top:4px; }
+  .term .cm{ color:var(--ink-400); }
+  .term .pr{ color:var(--teal-300); }
+  .term .ok{ color:#7FD7A8; }
+  .tasks{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
+  .tasks li{ display:flex; gap:12px; align-items:flex-start; font-size:16px; color:var(--ink-800); }
+  .box{ width:20px; height:20px; border:1.5px solid var(--ink-400); border-radius:5px; flex:none; margin-top:1px; }
+  .notes{ margin-top:14px; }
+  .notes .line{ border-bottom:1px solid var(--sand-300); height:30px; }
+  .foot{ margin-top:auto; padding-top:24px; display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px; color:var(--ink-500); letter-spacing:0.04em; }
+  @media print{ html,body{ background:#fff; } .page{ box-shadow:none; margin:0; } }
+</style></head>
+<body>
+  <div class="page">
+    <div class="head">
+      <div class="l"><img class="mark" src="../assets/logo-mark.svg" alt=""><span class="w">Uber Vibe &amp; Spec</span></div>
+      <div class="meta">Workbook · Module 03</div>
+    </div>
+
+    <div class="kicker">Module 03 · Spec-driven</div>
+    <h1>Spec-driven development</h1>
+    <p class="lead">In this module you'll turn a fuzzy feature request into a precise spec — then hand it to Claude and watch it build against your constraints and tests.</p>
+
+    <h2><i data-lucide="target"></i> Learning objectives</h2>
+    <ul class="obj">
+      <li><i data-lucide="check"></i> Translate a vague request into a one-paragraph spec</li>
+      <li><i data-lucide="check"></i> Express constraints as tests and types the agent must honor</li>
+      <li><i data-lucide="check"></i> Drive Claude through implementation and review safely</li>
+    </ul>
+
+    <h2><i data-lucide="terminal"></i> Try it</h2>
+    <div class="term">
+      <div class="cm"># start from a blank spec</div>
+      <div><span class="pr">~ ❯</span> claude "draft a spec for password reset, then write failing tests"</div>
+      <div class="ok">✓ spec/reset.md · 5 cases · 8 tests (red)</div>
+    </div>
+
+    <h2><i data-lucide="square-check-big"></i> Your turn</h2>
+    <ul class="tasks">
+      <li><span class="box"></span><span>Write a 5-line spec for a feature in your own codebase.</span></li>
+      <li><span class="box"></span><span>Add two constraints the agent must not violate.</span></li>
+      <li><span class="box"></span><span>Generate failing tests, then let Claude make them pass.</span></li>
+    </ul>
+
+    <h2><i data-lucide="pen-line"></i> Notes</h2>
+    <div class="notes">
+      <div class="line"></div><div class="line"></div><div class="line"></div>
+    </div>
+
+    <div class="foot">
+      <span>ubervibeandspec.com</span>
+      <span>From vibe to spec · p. 9</span>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body></html>

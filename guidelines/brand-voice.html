@@ -1,0 +1,27 @@
+<!-- @dsCard group="Brand" viewport="700x220" name="Voice — do & don't" subtitle="Warm, plainspoken, no hype. Talk to 'you', speak as 'we'." -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;background:var(--color-surface);padding:22px 26px;font-family:var(--font-sans);display:flex;gap:22px}
+  .col{flex:1;display:flex;flex-direction:column;gap:12px}
+  .tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .do .tag{color:var(--color-success)}
+  .dont .tag{color:var(--color-danger)}
+  .line{font-size:15px;line-height:1.4;color:var(--color-text);padding-left:18px;position:relative}
+  .line::before{position:absolute;left:0;top:0}
+  .do .line::before{content:"✓";color:var(--color-success)}
+  .dont .line::before{content:"✕";color:var(--color-danger)}
+  .dont .line{color:var(--color-text-muted)}
+</style></head><body>
+  <div class="col do">
+    <span class="tag">Do</span>
+    <div class="line">Learn to build real software with Claude Code.</div>
+    <div class="line">You'll ship your first agent loop today.</div>
+    <div class="line">Save your seat</div>
+  </div>
+  <div class="col dont">
+    <span class="tag">Don't</span>
+    <div class="line">Revolutionize your workflow with AI! 🚀</div>
+    <div class="line">Leverage agentic paradigms.</div>
+    <div class="line">ENROLL NOW!!!</div>
+  </div>
+</body></html>

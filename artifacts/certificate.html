@@ -1,0 +1,65 @@
+<!-- @dsCard group="Artifacts" viewport="1040x740" name="Certificate of completion" subtitle="Printable completion certificate." --><!-- @startingPoint section="Artifacts" subtitle="Printable certificate of completion" viewport="1040x740" -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--sand-200); }
+  .page{ width:1040px; height:740px; box-sizing:border-box; padding:18px; background:var(--sand-200); }
+  .cert{ position:relative; width:100%; height:100%; background:var(--sand-50); border-radius:8px;
+    border:2px solid var(--clay-500); box-shadow:var(--shadow-lg); overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; text-align:center; padding:56px 80px; box-sizing:border-box; }
+  .inner-rule{ position:absolute; inset:14px; border:1px solid var(--clay-200); border-radius:4px; pointer-events:none; }
+  .waves{ position:absolute; bottom:-50px; left:-40px; width:380px; opacity:0.16; pointer-events:none; }
+  .grid{ position:absolute; top:-30px; right:-20px; width:240px; opacity:0.5; pointer-events:none; }
+  .top{ display:flex; align-items:center; gap:12px; position:relative; }
+  .mark{ width:40px; height:40px; }
+  .word{ font-family:var(--font-sans); font-weight:700; font-size:18px; letter-spacing:-0.01em; color:var(--ink-900); text-align:left; line-height:1.1; white-space:nowrap; }
+  .word small{ display:block; font-family:var(--font-mono); font-weight:500; font-size:10.5px; letter-spacing:0.14em; color:var(--teal-600); }
+  .eyebrow{ font-family:var(--font-mono); font-size:13px; letter-spacing:0.22em; text-transform:uppercase; color:var(--clay-600); margin-top:38px; position:relative; }
+  .pre{ font-size:17px; color:var(--ink-600); margin-top:30px; position:relative; }
+  .name{ font-family:var(--font-display); font-size:64px; font-weight:500; letter-spacing:-0.02em; color:var(--ink-900); margin:10px 0 0; position:relative; }
+  .nameline{ width:420px; border-bottom:1.5px solid var(--sand-300); margin:8px 0 0; }
+  .course{ font-size:19px; color:var(--ink-700); margin-top:26px; max-width:560px; line-height:1.5; position:relative; }
+  .course b{ color:var(--ink-900); font-weight:600; }
+  .meta{ display:flex; gap:48px; margin-top:30px; position:relative; }
+  .meta .m{ display:flex; flex-direction:column; gap:4px; }
+  .meta .lbl{ font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-500); }
+  .meta .val{ font-size:16px; color:var(--ink-900); font-weight:600; }
+  .sign-row{ margin-top:auto; display:flex; align-items:flex-end; justify-content:space-between; width:100%; position:relative; }
+  .sig{ display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .sig .scr{ font-family:var(--font-display); font-style:italic; font-size:30px; color:var(--ink-800); white-space:nowrap; }
+  .sig .ln{ width:200px; border-bottom:1.5px solid var(--ink-300); }
+  .sig .cap{ font-family:var(--font-mono); font-size:11px; letter-spacing:0.1em; color:var(--ink-500); text-transform:uppercase; }
+  .seal{ width:96px; height:96px; border-radius:50%; border:2px solid var(--teal-500); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; color:var(--teal-700); }
+  .seal img{ width:30px; height:30px; }
+  .seal span{ font-family:var(--font-mono); font-size:9px; letter-spacing:0.14em; text-transform:uppercase; }
+  @media print{ html,body{ background:#fff; } .page{ padding:0; } }
+</style></head>
+<body>
+  <div class="page">
+    <div class="cert">
+      <div class="inner-rule"></div>
+      <img class="waves" src="../assets/motif-waves.svg" alt="">
+      <img class="grid" src="../assets/motif-grid.svg" alt="">
+      <div class="top">
+        <img class="mark" src="../assets/logo-mark.svg" alt="">
+        <div class="word">Uber Vibe<small>&amp; SPEC</small></div>
+      </div>
+      <div class="eyebrow">Certificate of Completion</div>
+      <div class="pre">This certifies that</div>
+      <div class="name">Ada Lovelace</div>
+      <div class="nameline"></div>
+      <div class="course">has completed the <b>Claude Code Workshop — From Vibe to Spec</b>, demonstrating fluency in building real software with Claude Code.</div>
+      <div class="meta">
+        <div class="m"><span class="lbl">Date</span><span class="val">June 23, 2026</span></div>
+        <div class="m"><span class="lbl">Cohort</span><span class="val">No. 16</span></div>
+        <div class="m"><span class="lbl">Hours</span><span class="val">12</span></div>
+      </div>
+      <div class="sign-row">
+        <div class="sig"><span class="scr">Jordan Reyes</span><span class="ln"></span><span class="cap">Lead Instructor</span></div>
+        <div class="seal"><img src="../assets/logo-mark-mono.svg" alt="" style="color:var(--teal-600)"><span>~ &amp; spec</span></div>
+        <div class="sig"><span class="scr">Sam Okafor</span><span class="ln"></span><span class="cap">Program Director</span></div>
+      </div>
+    </div>
+  </div>
+</body></html>

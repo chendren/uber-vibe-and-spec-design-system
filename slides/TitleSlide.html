@@ -1,0 +1,38 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Title slide" subtitle="Opening card — logo, big serif title, presenter." -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--sand-50); }
+  .slide{ width:1280px; height:720px; position:relative; overflow:hidden; background:var(--sand-50);
+    padding:84px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; }
+  .waves{ position:absolute; top:-60px; right:-80px; width:680px; opacity:0.45; pointer-events:none; }
+  .top{ display:flex; align-items:center; gap:14px; position:relative; }
+  .mark{ width:46px; height:46px; }
+  .word{ font-family:var(--font-sans); font-weight:700; font-size:20px; letter-spacing:-0.01em; color:var(--ink-900); line-height:1.05; white-space:nowrap; }
+  .word small{ display:block; font-family:var(--font-mono); font-weight:500; font-size:12px; letter-spacing:0.14em; color:var(--teal-600); margin-top:3px; }
+  .center{ position:relative; }
+  .eyebrow{ font-family:var(--font-mono); font-size:15px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--clay-600); }
+  h1{ font-family:var(--font-display); font-size:108px; line-height:0.98; letter-spacing:-0.03em; font-weight:500; color:var(--ink-900); margin:22px 0 0; }
+  .sub{ font-size:26px; color:var(--ink-600); margin:26px 0 0; max-width:760px; line-height:1.4; }
+  .foot{ display:flex; justify-content:space-between; align-items:flex-end; position:relative; font-family:var(--font-mono); font-size:14px; color:var(--ink-500); letter-spacing:0.02em; }
+  .foot b{ color:var(--ink-800); font-weight:600; }
+</style></head>
+<body>
+  <div class="slide">
+    <img class="waves" src="../assets/motif-waves.svg" alt="">
+    <div class="top">
+      <img class="mark" src="../assets/logo-mark.svg" alt="">
+      <div class="word">Uber Vibe<small>&amp; SPEC</small></div>
+    </div>
+    <div class="center">
+      <div class="eyebrow">Claude Code Workshop</div>
+      <h1>From vibe<br>to spec.</h1>
+      <p class="sub">A hands-on, one-day workshop on building real software with Claude Code.</p>
+    </div>
+    <div class="foot">
+      <span><b>Workshop 101</b> · Live cohort 16</span>
+      <span>ubervibeandspec.com</span>
+    </div>
+  </div>
+</body></html>

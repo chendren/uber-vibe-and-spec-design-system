@@ -1,0 +1,59 @@
+/* ---------------------------------------------------------------------------
+   Uber Vibe and Spec — Spacing, radii, shadows, motion
+   ---------------------------------------------------------------------------
+   4px base grid. Radii are generous and soft (the "Vibe" warmth); shadows are
+   warm-tinted (cast in ink, never neutral grey) and diffuse.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Spacing — 4px grid */
+  --space-0:  0;
+  --space-1:  0.25rem;  /* 4  */
+  --space-2:  0.5rem;   /* 8  */
+  --space-3:  0.75rem;  /* 12 */
+  --space-4:  1rem;     /* 16 */
+  --space-5:  1.5rem;   /* 24 */
+  --space-6:  2rem;     /* 32 */
+  --space-7:  3rem;     /* 48 */
+  --space-8:  4rem;     /* 64 */
+  --space-9:  6rem;     /* 96 */
+  --space-10: 8rem;     /* 128 */
+
+  /* Radii */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   28px;
+  --radius-card: 18px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-hair:  1px;
+  --border-base:  1.5px;
+  --border-thick: 2px;
+
+  /* Shadows — warm ink-tinted, diffuse */
+  --shadow-xs: 0 1px 2px rgba(27, 24, 19, 0.06);
+  --shadow-sm: 0 2px 8px rgba(27, 24, 19, 0.07);
+  --shadow-md: 0 8px 24px -6px rgba(27, 24, 19, 0.13);
+  --shadow-lg: 0 20px 50px -14px rgba(27, 24, 19, 0.20);
+  --shadow-xl: 0 36px 80px -20px rgba(27, 24, 19, 0.28);
+  /* Inset for sunken / pressed states */
+  --shadow-inset: inset 0 1px 2px rgba(27, 24, 19, 0.10);
+
+  /* Focus ring */
+  --ring-width: 3px;
+  --ring: 0 0 0 var(--ring-width) color-mix(in srgb, var(--color-focus) 45%, transparent);
+
+  /* Motion — calm, no bounce; ease-out for entrances */
+  --ease-out:   cubic-bezier(0.22, 0.61, 0.36, 1);   /* @kind other */
+  --ease-in-out:cubic-bezier(0.45, 0, 0.2, 1);        /* @kind other */
+  --dur-fast:   120ms;                                /* @kind other */
+  --dur-base:   200ms;                                /* @kind other */
+  --dur-slow:   360ms;                                /* @kind other */
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-prose: 68ch;
+}

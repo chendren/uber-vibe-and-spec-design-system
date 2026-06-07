@@ -1,0 +1,52 @@
+<!-- @dsCard group="Components" viewport="700x340" name="Forms — Button & Input" subtitle="Clay primary, teal accent, secondary & ghost; labeled inputs." -->
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body{margin:0;background:var(--color-surface);padding:26px;font-family:var(--font-sans)}
+  .group{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:18px}
+  .row{display:flex;gap:20px;align-items:flex-end}
+  .row > *{flex:1}
+  .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-subtle);margin:0 0 10px;width:100%}
+</style></head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script src="../ds-card-boot.js"></script>
+  <script type="text/babel">
+    window.__mount = function(){
+    const { Button, Input } = window.UberVibeAndSpecDesignSystem_37e707;
+    const I = (n) => <i data-lucide={n}></i>;
+    function Demo(){
+      return (<>
+        <p className="lbl">Variants</p>
+        <div className="group">
+          <Button>Save your seat</Button>
+          <Button variant="accent">Start the course</Button>
+          <Button variant="secondary">View syllabus</Button>
+          <Button variant="ghost">Cancel</Button>
+        </div>
+        <p className="lbl">Sizes · with icon · disabled</p>
+        <div className="group">
+          <Button size="sm">Small</Button>
+          <Button size="md" iconRight={I('arrow-right')}>Medium</Button>
+          <Button size="lg" variant="accent" iconLeft={I('terminal')}>Large</Button>
+          <Button disabled>Disabled</Button>
+        </div>
+        <p className="lbl">Inputs</p>
+        <div className="row">
+          <Input label="Work email" type="email" placeholder="you@company.com" iconLeft={I('mail')} required/>
+          <Input label="Team size" hint="Roughly how many engineers?" placeholder="e.g. 8"/>
+        </div>
+      </>);
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+    setTimeout(()=>window.lucide && window.lucide.createIcons(), 60);
+    };
+    __bootCard('../../');
+  </script>
+</body></html>

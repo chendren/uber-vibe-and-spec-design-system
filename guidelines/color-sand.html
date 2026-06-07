@@ -1,0 +1,23 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Sand — neutral surfaces" subtitle="Warm off-whites. The page, cards, and sunken surfaces." -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;background:var(--color-surface);font-family:var(--font-mono);padding:20px}
+  .row{display:flex;gap:10px}
+  .sw{flex:1;display:flex;flex-direction:column;gap:6px}
+  .chip{height:64px;border-radius:var(--radius-sm);box-shadow:var(--shadow-xs)}
+  .n{font-size:11px;color:var(--color-text-muted)}
+  .h{font-size:11px;color:var(--color-text);font-weight:500}
+  .chipwrap{position:relative}
+  .star{position:absolute;top:6px;right:8px;font-size:13px;color:#1B1813}
+</style></head><body>
+  <div class="row" id="r"></div>
+  <script>
+    const steps=[50,100,200,300,400];
+    const r=document.getElementById('r');
+    steps.forEach(s=>{
+      const v=getComputedStyle(document.documentElement).getPropertyValue('--sand-'+s).trim();
+      r.insertAdjacentHTML('beforeend',
+       `<div class="sw"><div class="chipwrap"><div class="chip" style="background:${v}"></div>${s===-1?'<span class="star">\u25CF</span>':''}</div><span class="n">${s}</span><span class="h">${v}</span></div>`);
+    });
+  </script>
+</body></html>

@@ -1,0 +1,41 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Closing slide" subtitle="Sign-off — call to action and contact." -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--teal-600); }
+  .slide{ width:1280px; height:720px; position:relative; overflow:hidden; background:var(--teal-600);
+    padding:84px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; color:var(--sand-50); }
+  .waves{ position:absolute; bottom:-80px; left:-60px; width:760px; opacity:0.22; filter:brightness(0) invert(1); pointer-events:none; }
+  .top{ display:flex; align-items:center; gap:14px; position:relative; }
+  .mark{ width:46px; height:46px; }
+  .word{ font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.85); }
+  .center{ position:relative; }
+  .eyebrow{ font-family:var(--font-mono); font-size:15px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:var(--teal-100); }
+  h1{ font-family:var(--font-display); font-size:96px; line-height:1; letter-spacing:-0.03em; font-weight:500; color:var(--sand-50); margin:20px 0 0; }
+  .sub{ font-size:24px; color:rgba(255,255,255,0.88); margin:24px 0 0; max-width:680px; line-height:1.45; }
+  .foot{ position:relative; display:flex; gap:40px; align-items:center; font-family:var(--font-mono); font-size:15px; color:var(--sand-50); }
+  .foot .item{ display:flex; align-items:center; gap:10px; }
+  .foot svg{ width:18px; height:18px; color:var(--teal-100); }
+</style></head>
+<body>
+  <div class="slide">
+    <img class="waves" src="../assets/motif-waves.svg" alt="">
+    <div class="top">
+      <img class="mark" src="../assets/logo-mark-mono.svg" alt="" style="color:var(--sand-50)">
+      <span class="word">Uber Vibe &amp; Spec</span>
+    </div>
+    <div class="center">
+      <div class="eyebrow">That's a wrap</div>
+      <h1>Now go build.</h1>
+      <p class="sub">You've got the moves — vibe to explore, spec to ship. Take them back to your codebase tomorrow.</p>
+    </div>
+    <div class="foot">
+      <span class="item"><i data-lucide="globe"></i> ubervibeandspec.com</span>
+      <span class="item"><i data-lucide="mail"></i> hello@ubervibeandspec.com</span>
+      <span class="item"><i data-lucide="github"></i> /ubervibeandspec</span>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body></html>

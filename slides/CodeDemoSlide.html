@@ -1,0 +1,58 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Code demo slide" subtitle="Live Claude Code session beside the teaching point." -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--sand-50); }
+  .slide{ width:1280px; height:720px; position:relative; overflow:hidden; background:var(--sand-50);
+    padding:84px; box-sizing:border-box; display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center; }
+  .eyebrow{ font-family:var(--font-mono); font-size:14px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay-600); }
+  h2{ font-family:var(--font-display); font-size:50px; line-height:1.05; letter-spacing:-0.025em; font-weight:500; color:var(--ink-900); margin:14px 0 0; }
+  .lead{ font-size:19px; color:var(--ink-600); margin:22px 0 0; line-height:1.5; }
+  .chip{ display:inline-flex; align-items:center; gap:8px; margin-top:28px; font-family:var(--font-mono); font-size:13px; color:var(--ink-700); background:var(--sand-100); border:1px solid var(--sand-300); padding:8px 14px; border-radius:var(--radius-pill); }
+  .chip svg{ width:15px; height:15px; color:var(--teal-600); }
+
+  .term{ font-family:var(--font-mono); font-size:16px; line-height:1.75; background:var(--color-surface-dark); color:var(--sand-100);
+    border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--ink-700); box-shadow:var(--shadow-lg); }
+  .bar{ display:flex; align-items:center; gap:9px; padding:14px 18px; background:rgba(0,0,0,0.22); border-bottom:1px solid var(--ink-700); }
+  .dot{ width:12px; height:12px; border-radius:50%; }
+  .bt{ margin-left:8px; font-size:13px; color:var(--ink-400); letter-spacing:0.03em; }
+  .tb{ padding:24px 26px; }
+  .ln{ display:flex; gap:10px; }
+  .pr{ color:var(--teal-300); flex:none; }
+  .cm{ color:var(--ink-400); }
+  .out{ color:var(--sand-300); }
+  .ok{ color:#7FD7A8; }
+  .cl{ color:var(--clay-300); display:flex; gap:10px; }
+  .cl::before{ content:"●"; color:var(--clay-400); }
+  .cur{ display:inline-block; width:9px; height:1.05em; background:var(--clay-400); vertical-align:text-bottom; }
+</style></head>
+<body>
+  <div class="slide">
+    <div>
+      <div class="eyebrow">Module 01 · Your first loop</div>
+      <h2>Watch it ship a real change.</h2>
+      <p class="lead">You describe the outcome in plain language. Claude reads the codebase, makes the edit, and writes a test — you stay in the loop the whole way.</p>
+      <div class="chip"><i data-lucide="git-branch"></i> Live demo · checkout-service</div>
+    </div>
+    <div class="term">
+      <div class="bar">
+        <span class="dot" style="background:var(--clay-400)"></span>
+        <span class="dot" style="background:var(--amber-500)"></span>
+        <span class="dot" style="background:var(--teal-400)"></span>
+        <span class="bt">claude-code — ~/checkout-service</span>
+      </div>
+      <div class="tb">
+        <div class="cm"># add a coupon field to checkout</div>
+        <div class="ln"><span class="pr">~ ❯</span><span>claude "add a coupon code field to checkout"</span></div>
+        <div class="cl">Reading the checkout flow… I'll add the field, validation, and a test.</div>
+        <div class="out">&nbsp;&nbsp;edited&nbsp;&nbsp;src/Checkout.tsx</div>
+        <div class="out">&nbsp;&nbsp;added&nbsp;&nbsp;&nbsp;src/Checkout.test.tsx</div>
+        <div class="ok">✓ 3 tests passing · ready to review</div>
+        <div class="ln"><span class="pr">~ ❯</span><span class="cur"></span></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>lucide.createIcons();</script>
+</body></html>

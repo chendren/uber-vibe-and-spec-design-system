@@ -1,0 +1,36 @@
+<!-- @dsCard group="Components" viewport="700x220" name="Brand — Logo" subtitle="Mark, wordmark, lockup; light & dark themes." -->
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  body{margin:0;padding:0;font-family:var(--font-sans);display:flex}
+  .pane{flex:1;display:flex;flex-direction:column;gap:22px;align-items:center;justify-content:center;padding:30px}
+  .light{background:var(--color-surface)}
+  .dark{background:var(--ink-900)}
+  .lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+</style></head>
+<body>
+  <div id="light" class="pane light"></div>
+  <div id="dark" class="pane dark"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script src="../ds-card-boot.js"></script>
+  <script type="text/babel">
+    window.__mount = function(){
+    const { Logo } = window.UberVibeAndSpecDesignSystem_37e707;
+    ReactDOM.createRoot(document.getElementById('light')).render(<>
+      <Logo variant="lockup" size={40}/>
+      <Logo variant="mark" size={48}/>
+      <span className="lbl" style={{color:'var(--color-text-subtle)'}}>Lockup · mark — on light</span>
+    </>);
+    ReactDOM.createRoot(document.getElementById('dark')).render(<>
+      <Logo variant="wordmark" size={32} theme="dark"/>
+      <Logo variant="lockup" size={32} theme="dark"/>
+      <span className="lbl" style={{color:'var(--ink-400)'}}>Wordmark · lockup — on ink</span>
+    </>);
+    };
+    __bootCard('../../');
+  </script>
+</body></html>

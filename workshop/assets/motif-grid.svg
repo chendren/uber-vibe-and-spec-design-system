@@ -1,0 +1,8 @@
+<svg width="240" height="140" viewBox="0 0 240 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <pattern id="vs-dotgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.6" fill="#117C6F"></circle>
+    </pattern>
+  </defs>
+  <rect width="240" height="140" fill="url(#vs-dotgrid)"></rect>
+</svg>

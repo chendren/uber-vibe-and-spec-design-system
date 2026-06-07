@@ -1,0 +1,33 @@
+<!-- @dsCard group="Slides" viewport="1280x720" name="Section divider" subtitle="Module break — big number, serif title on clay." -->
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{ margin:0; background:var(--clay-600); }
+  .slide{ width:1280px; height:720px; position:relative; overflow:hidden; background:var(--clay-600);
+    padding:84px; box-sizing:border-box; display:flex; flex-direction:column; justify-content:space-between; color:var(--sand-50); }
+  .grid{ position:absolute; inset:0; opacity:0.16; filter:brightness(0) invert(1); pointer-events:none; }
+  .top{ display:flex; justify-content:space-between; align-items:center; position:relative; }
+  .word{ font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.8); }
+  .num{ font-family:var(--font-mono); font-size:15px; letter-spacing:0.14em; color:rgba(255,255,255,0.8); }
+  .center{ position:relative; }
+  .big{ font-family:var(--font-mono); font-size:130px; font-weight:500; line-height:1; color:var(--clay-200); letter-spacing:-0.02em; }
+  h2{ font-family:var(--font-display); font-size:78px; line-height:1.02; letter-spacing:-0.025em; font-weight:500; color:var(--sand-50); margin:8px 0 0; }
+  .sub{ font-size:23px; color:rgba(255,255,255,0.82); margin:22px 0 0; max-width:680px; line-height:1.45; }
+  .foot{ position:relative; font-family:var(--font-mono); font-size:14px; color:rgba(255,255,255,0.7); }
+</style></head>
+<body>
+  <div class="slide">
+    <img class="grid" src="../assets/motif-grid.svg" alt="">
+    <div class="top">
+      <div class="word">~ &amp; spec · workshop</div>
+      <div class="num">03 / 06</div>
+    </div>
+    <div class="center">
+      <div class="big">03</div>
+      <h2>Spec-driven<br>development</h2>
+      <p class="sub">Write the plan, the constraints, and the tests first — then drive Claude precisely.</p>
+    </div>
+    <div class="foot">Module 03</div>
+  </div>
+</body></html>

@@ -1,0 +1,19 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Semantic states" subtitle="Success, warning, danger, info — kept slightly warm to stay in family." -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;background:var(--color-surface);font-family:var(--font-sans);padding:20px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .cell{display:flex;flex-direction:column;gap:8px}
+  .pair{display:flex;gap:6px}
+  .solid{flex:1;height:48px;border-radius:var(--radius-sm)}
+  .soft{width:48px;height:48px;border-radius:var(--radius-sm)}
+  .lab{font-size:13px;font-weight:600;color:var(--color-text)}
+  .tok{font-family:var(--font-mono);font-size:10.5px;color:var(--color-text-subtle)}
+</style></head><body>
+  <div class="grid">
+    <div class="cell"><div class="pair"><div class="solid" style="background:var(--color-success)"></div><div class="soft" style="background:var(--color-success-soft)"></div></div><span class="lab">Success</span><span class="tok">--color-success</span></div>
+    <div class="cell"><div class="pair"><div class="solid" style="background:var(--color-warning)"></div><div class="soft" style="background:var(--color-warning-soft)"></div></div><span class="lab">Warning</span><span class="tok">--color-warning</span></div>
+    <div class="cell"><div class="pair"><div class="solid" style="background:var(--color-danger)"></div><div class="soft" style="background:var(--color-danger-soft)"></div></div><span class="lab">Danger</span><span class="tok">--color-danger</span></div>
+    <div class="cell"><div class="pair"><div class="solid" style="background:var(--color-info)"></div><div class="soft" style="background:var(--color-info-soft)"></div></div><span class="lab">Info</span><span class="tok">--color-info</span></div>
+  </div>
+</body></html>
